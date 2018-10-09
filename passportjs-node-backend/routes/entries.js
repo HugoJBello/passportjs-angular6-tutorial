@@ -13,7 +13,7 @@ router.post('/save_entry', passport.authenticate('jwt', { session: false }), fun
       tags: req.body.tags
     });
 
-    newBook.save(function (err) {
+    newPost.save(function (err) {
       if (err) {
         return res.json({ success: false, msg: 'Save book failed.' });
       }

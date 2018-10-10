@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { BlogEntry, EntriesService } from '../entries.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-new-entry',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NewEntryComponent implements OnInit {
 
-  constructor() { }
-
+  constructor(private router: Router, private entriesService: EntriesService) { }
+  entry: BlogEntry = { title: 'enter title', content: 'enter content', tags: 'enter tags' };
   ngOnInit() {
+  }
+  async submmit() {
+    await this.entriesService.saveEntry(this.entry);
+    this.router.navigate(['entries']);
+
   }
 
 }

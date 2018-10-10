@@ -1,0 +1,26 @@
+<nav class="navbar navbar-dark bg-dark mb-5">
+  <a class="navbar-brand" href="/">Secured App</a>
+  <div class="navbar-expand mr-auto">
+    <div class="navbar-nav">
+      <a class="nav-item nav-link" routerLink="/entries" routerLinkActive="active">Entries</a>
+      <a class="nav-item nav-link" routerLink="/new_entry" routerLinkActive="active">New entry</a>
+      <a class="nav-item nav-link" routerLink="/user_page" routerLinkActive="active">user page</a>
+    </div>
+  </div>
+  <div class="navbar-expand ml-auto navbar-nav">
+    <div class="navbar-nav">
+      <span *ngIf="loggedUser" class="nav-item nav-link">
+        {{loggedUser}}
+      </span>
+      <a *ngIf="loggedUser" class="nav-item nav-link" (click)="logout()">
+        logout
+      </a>
+      <a *ngIf="!loggedUser" class="nav-item nav-link" routerLink="/login" routerLinkActive="active">
+        login
+      </a>
+      <a class="nav-item nav-link" routerLink="/signup" routerLinkActive="active">
+        signup
+      </a>
+    </div>
+  </div>
+</nav>

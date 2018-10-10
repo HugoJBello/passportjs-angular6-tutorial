@@ -14,6 +14,7 @@ router.post('/signup', function (req, res) {
   } else {
     var newUser = new User({
       username: req.body.username,
+      email: req.body.email,
       password: req.body.password
     });
     // save the user
@@ -22,6 +23,7 @@ router.post('/signup', function (req, res) {
         return res.json({ success: false, msg: 'Username already exists.' });
       }
       res.json({ success: true, msg: 'Successful created new user.' });
+      console.log('Successful created new user.' + newUser.username)
     });
   }
 });

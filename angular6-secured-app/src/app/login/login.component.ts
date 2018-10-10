@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 // import { Router } from "@angular/router";
 import { Observable } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { LoginData } from '../auth/user';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -12,22 +13,22 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private http: HttpClient, private router: Router) { }
-  loginData = { username: '', password: '' };
+  constructor(private router: Router, private authService: AuthService) { }
+  loginData: LoginData = { username: '', password: '' };
   message = '';
   data: any;
 
   ngOnInit() {
   }
 
-  login() {
-    this.http.post('/security/signin', this.loginData).subscribe(resp => {
-      this.data = resp;
-      localStorage.setItem('jwtToken', this.data.token);
-      this.router.navigate(['books']);
-    }, err => {
+  async login() {
+    try {
+      await this.authService.login(this.loginData);
+      this.router.navigate(['user_page']);
+      this.message = '';
+    } catch (err) {
       this.message = err.error.msg;
-    });
+    }
   }
 
 }

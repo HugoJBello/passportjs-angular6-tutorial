@@ -15,9 +15,9 @@ router.post('/save_entry', passport.authenticate('jwt', { session: false }), fun
 
     newPost.save(function (err) {
       if (err) {
-        return res.json({ success: false, msg: 'Save book failed.' });
+        return res.json({ success: false, msg: 'Save entry failed.' });
       }
-      res.json({ success: true, msg: 'Successful created new book.' });
+      res.json({ success: true, msg: 'Successful created new entry.' });
     });
   } else {
     return res.status(403).send({ success: false, msg: 'Unauthorized.' });
@@ -26,6 +26,21 @@ router.post('/save_entry', passport.authenticate('jwt', { session: false }), fun
 
 router.get('/titled/:title', function (req, res) {
   BlogEntry.findOne({ title: req.params.title }).exec(function (err, entry) {
+    if (err) throw err;
+    return res.json(entry);
+  });
+});
+
+router.get('/entries_list/limit=:limit&skip=:skip', function (req, res) {
+  let limit;
+  let skip;
+  if (req.params.limit) {
+    limit = parseInt(req.params.limit);
+  }
+  if (req.params.skip) {
+    skip = parseInt(req.params.skip)
+  }
+  BlogEntry.find({ title: req.params.title }).limit(limit).skip(skip).exec(function (err, entry) {
     if (err) throw err;
     return res.json(entry);
   });

@@ -1,3 +1,9 @@
-<p>
-  new-entry works!
-</p>
+<label for="title" class="sr-only">Title</label>
+<input type="text" class="form-control" placeholder="title" [(ngModel)]="entry.title" name="title" required />
+<label for="tags" class="sr-only">Tags</label>
+<input type="text" class="form-control" placeholder="tags" [(ngModel)]="entry.tags" name="tags" required />
+<div class="form-group">
+  <label for="content">Content</label>
+  <textarea class="form-control rounded-0" id="content" rows="10" [(ngModel)]="entry.content"></textarea>
+</div>
+<button class="btn btn-primary" (click)="submmit()">Send</button>

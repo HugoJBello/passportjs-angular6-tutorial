@@ -14,6 +14,7 @@ var BlogEntrySchema = new Schema({
         type: String,
         required: true
     }
-});
+},
+    { collection: 'entries' });
 
 module.exports = mongoose.model('BlogEntry', BlogEntrySchema);

@@ -15,6 +15,7 @@ router.post('/save_entry', passport.authenticate('jwt', { session: false }), fun
 
     newPost.save(function (err) {
       if (err) {
+        console.log(err);
         return res.json({ success: false, msg: 'Save entry failed.' });
       }
       res.json({ success: true, msg: 'Successful created new entry.' });
@@ -40,7 +41,7 @@ router.get('/entries_list/limit=:limit&skip=:skip', function (req, res) {
   if (req.params.skip) {
     skip = parseInt(req.params.skip)
   }
-  BlogEntry.find({ title: req.params.title }).limit(limit).skip(skip).exec(function (err, entry) {
+  BlogEntry.find({}).limit(limit).skip(skip).exec(function (err, entry) {
     if (err) throw err;
     return res.json(entry);
   });
